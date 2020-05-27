@@ -1,29 +1,22 @@
 import React, { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Container, Row, Form } from 'react-bootstrap';
-import { Formik, useField } from 'formik';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 
 import SingleIndicatorMessage from './SingleIndicatorMessage';
+import ScoreRange from './ScoreRange'
+import EventsCheckBox from './EventsCheckbox'
+
 import { RootState } from 'reducers';
-import { fetchIndicatorMessages } from 'reducers/indicatorMessages'
+import { fetchIndicatorMessages, FilterParams } from 'reducers/indicatorMessages'
 
-const EventsCheckBox: React.FC<{name: string}> = ({ children, ...props }) => {
-  const [field, meta] = useField({ ...props, type: "checkbox" });
-  return (
-    <>
-      <label className="checkbox">
-        <input {...field} {...props} type="checkbox" />
-        {children}
-      </label>
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </>
-  );
-};
+interface FiltersFormValues { [key: string]: any }
 
-interface FiltersFormValues {
-  showOnlyEvents: boolean
+const initialFormValues: FiltersFormValues = {
+  event: false,
+  risk_score_max: 100,
+  risk_score_min: 0
 }
 
 function IndicatorMessagesList() {
@@ -38,15 +31,17 @@ function IndicatorMessagesList() {
 
   const handleFilters = useCallback((values: FiltersFormValues) => {
     if (token) {
-      const filters = []
-      const { showOnlyEvents } = values
-      if (showOnlyEvents) {
-        filters.push({
-          name: "event",
-          value: true
-        })
-      }
-      dispatch(fetchIndicatorMessages(token, filters))
+      const truthyFilters = Object.keys(values).reduce((acc, key) => {
+        const filter = values[key]
+        if (filter) {
+          acc.push({
+            name: key,
+            value: filter
+          })
+        }
+        return acc
+      }, [] as Array<FilterParams>)
+      if (truthyFilters) dispatch(fetchIndicatorMessages(token, truthyFilters))
     }
   }, [dispatch])
 
@@ -56,15 +51,15 @@ function IndicatorMessagesList() {
         acc[name] = value
         return acc
       }, {} as {[key: string]: any})
+      console.log(filtersObject)
 
       return {
-        showOnlyEvents: filtersObject['event']
+        ...initialFormValues,
+        ...filtersObject
       }
     }
 
-    return {
-      showOnlyEvents: false
-    }
+    return initialFormValues
   }, [filters])
 
   return (
@@ -76,14 +71,30 @@ function IndicatorMessagesList() {
             <Col lg="2" md="2">
               <Formik
                 initialValues={formInitialValues}
+                validationSchema={
+                  yup.object().shape({
+                    risk_score_max: yup.number().when('risk_score_min', 
+                      (risk_score_min: number, schema: any) => {
+                        console.log(risk_score_min)
+                        return risk_score_min !== undefined && schema.min(risk_score_min)
+                      }
+                    ),
+                    risk_score_min: yup.number()
+                  })
+                }
                 onSubmit={(values) => {
                   console.log(values)
                   handleFilters(values)
                 }}>
-                {({handleSubmit}) => (
+                {({values, errors, handleSubmit}) => (
                   <Form onSubmit={handleSubmit}>
-                    <EventsCheckBox name="showOnlyEvents">Show only Events</EventsCheckBox>
-                    <Button type="submit">Filter</Button>
+                    <EventsCheckBox name="event">Show only Events</EventsCheckBox>
+                    <Form.Group controlId="formBasicRange">
+                      <Form.Label>Risk Score</Form.Label>
+                      <ScoreRange name="risk_score_min">Min</ScoreRange>
+                      <ScoreRange name="risk_score_max">Max</ScoreRange>
+                    </Form.Group>
+                    <Button disabled={Object.keys(errors).length > 0} type="submit">Filter</Button>
                   </Form>
                 )}
               </Formik>

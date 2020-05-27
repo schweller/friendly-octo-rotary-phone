@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { AppThunk } from 'store/configureStore'
 
-type FilterParams = {
+export type FilterParams = {
   name: string
-  value: string | boolean
+  value: any
 }
 
 interface IndicatorMessage {

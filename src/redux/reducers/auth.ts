@@ -54,8 +54,8 @@ export const login = (username: string, password: string): AppThunk => async (
   dispatch
 ) => {
   try {
-    console.log(process.env.CLIENT_SECRET);
-    console.log(process.env.CLIENT_ID);
+    console.log(process.env.REACT_APP_CLIENT_ID);
+    console.log(process.env.REACT_APP_CLIENT_SECRET);
     dispatch(loginStart());
     const { data } = await axios.post(
       'https://stagingauth.riskmethods.net/oauth/token',
@@ -63,8 +63,8 @@ export const login = (username: string, password: string): AppThunk => async (
         grant_type: 'password',
         username,
         password,
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET,
       }
     );
     storeAccessToken(data.access_token);

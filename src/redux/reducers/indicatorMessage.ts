@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from 'store/configureStore';
+import { AppThunk } from 'redux/store/configureStore';
 import api from 'shared/utils/api';
 
 interface IndicatorMessage {
@@ -40,7 +40,7 @@ function loadingFailed(state: IndicatorMessageState) {
   state.isLoading = false;
 }
 
-const initialState: IndicatorMessageState = {
+export const initialState: IndicatorMessageState = {
   error: null,
   indicatorMessageId: null,
   indicatorMessage: null,

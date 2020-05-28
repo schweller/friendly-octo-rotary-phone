@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -11,11 +11,11 @@ import { FiltersCol } from './Styles';
 import SectionHeader from 'shared/components/SectionHeader';
 import LoadingOverlay from 'shared/components/LoadingOverlay';
 
-import { RootState } from 'reducers';
+import { RootState } from 'redux/reducers';
 import {
   fetchIndicatorMessages,
   FilterParams,
-} from 'reducers/indicatorMessages';
+} from 'redux/reducers/indicatorMessages';
 
 interface FiltersFormValues {
   [key: string]: any;
@@ -71,7 +71,7 @@ function IndicatorMessagesList() {
   return (
     <>
       <LoadingOverlay control={isLoading} />
-      <Container>
+      <Container data-testid="indicator-messages-list">
         <Row className="justify-content-md-center">
           <Col className="mt-4 px-0" lg="3" md="3">
             <FiltersCol>

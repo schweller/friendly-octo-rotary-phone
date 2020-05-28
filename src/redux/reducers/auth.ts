@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { AppThunk } from 'store/configureStore';
+import { AppThunk } from 'redux/store/configureStore';
 import { storeAccessToken } from 'shared/utils/accessToken';
 
 interface AuthState {
@@ -18,7 +18,7 @@ interface AuthFailure {
   status: number;
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   token: null,
   isAuthenticated: false,
   isAuthenticating: false,
@@ -59,8 +59,6 @@ export const login = (username: string, password: string): AppThunk => async (
       'https://stagingauth.riskmethods.net/oauth/token',
       {
         grant_type: 'password',
-        // username: 'test.user@internal.riskmethods.net',
-        // password: 'whitebusbluecar',
         username,
         password,
         client_id: 'fjHsalRElzo6JB_dvIGx6pw2p4WMT0pMjhtcW7d159Q',

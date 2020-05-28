@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import Login from 'Login';
-import { RootState } from 'reducers';
+import { RootState } from 'redux/reducers';
 import IndicatorMessages from 'IndicatorMessages';
 
 function App() {

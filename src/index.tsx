@@ -2,24 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import store from 'store/configureStore'
+import store from 'redux/store/configureStore';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const render = () => {
-  const App = require('./App').default
+  const App = require('./App').default;
 
   ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>,
     document.getElementById('root')
-  )
-}
+  );
+};
 
-render()
+render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('./App', render)
+  module.hot.accept('./App', render);
 }

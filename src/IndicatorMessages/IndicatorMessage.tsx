@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Container, ProgressBarProps } from 'react-bootstrap';
 
-import { RootState } from 'reducers';
-import { resetIndicatorMessage } from 'reducers/indicatorMessage';
+import { RootState } from 'redux/reducers';
+import { resetIndicatorMessage } from 'redux/reducers/indicatorMessage';
 
 import {
   Container as StyledContainer,
@@ -35,7 +35,7 @@ function IndicatorMessage() {
     <>
       <LoadingOverlay control={isLoading} />
       {indicatorMessage && (
-        <Container>
+        <Container data-testid="indicator-message">
           <SectionHeader title="Indicator Message" />
           <Button
             className="p-0 mb-4"

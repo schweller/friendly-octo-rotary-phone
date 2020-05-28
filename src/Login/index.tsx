@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { Field, Formik } from 'formik';
 
-import { RootState } from 'reducers';
-import { login } from 'reducers/auth';
+import { RootState } from 'redux/reducers';
+import { login } from 'redux/reducers/auth';
 
 function Login() {
   const dispatch = useDispatch();
@@ -42,6 +42,7 @@ function Login() {
                     <Field
                       as={Form.Control}
                       name="username"
+                      data-testid="username-control"
                       placeholder="Enter email"
                       required
                     />
@@ -51,6 +52,7 @@ function Login() {
                     <Form.Label>Password</Form.Label>
                     <Field
                       as={Form.Control}
+                      data-testid="password-control"
                       type="password"
                       name="password"
                       placeholder="Password"
@@ -61,7 +63,11 @@ function Login() {
                     <small className="text-danger">{authError}</small>
                   </p>
                   {isAuthenticating ? (
-                    <Button variant="primary" disabled>
+                    <Button
+                      variant="primary"
+                      data-testid="loading-login"
+                      disabled
+                    >
                       <Spinner
                         as="span"
                         animation="grow"
@@ -72,8 +78,12 @@ function Login() {
                       Logging in...
                     </Button>
                   ) : (
-                    <Button variant="primary" type="submit">
-                      Submit
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      data-testid="login-btn"
+                    >
+                      Log-in
                     </Button>
                   )}
                 </Form>

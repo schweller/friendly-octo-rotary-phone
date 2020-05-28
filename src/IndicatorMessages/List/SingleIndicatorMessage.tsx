@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
-import { fetchIndicatorMessage } from 'reducers/indicatorMessage';
+import { fetchIndicatorMessage } from 'redux/reducers/indicatorMessage';
 import getVariant from 'shared/utils/getVariant';
 import getUTCDate from 'shared/utils/getUTCDate';
 
@@ -41,7 +41,7 @@ function SingleIndicatorMessage({ message }: PropsType) {
   }, [id]);
 
   return (
-    <Container>
+    <Container data-testid="single-indicator-message">
       <ScoreContainer>
         <StyledBadge variant={getVariant(attributes.risk_score.value)}>
           {attributes.risk_score.value}.0

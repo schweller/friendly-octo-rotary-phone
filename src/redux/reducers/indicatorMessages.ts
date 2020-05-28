@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from 'store/configureStore';
+import { AppThunk } from 'redux/store/configureStore';
 import api from 'shared/utils/api';
 
 export type FilterParams = {
@@ -41,7 +41,7 @@ function loadingFailed(
   state.isLoading = false;
 }
 
-const initialState: IndicatorMessagesState = {
+export const initialState: IndicatorMessagesState = {
   error: null,
   isLoading: false,
   messages: null,

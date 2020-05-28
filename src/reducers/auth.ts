@@ -7,7 +7,7 @@ interface AuthState {
   token: string | null
   isAuthenticated: boolean
   isAuthenticating: boolean
-  statusText: string | null
+  error: string | null
 }
 
 interface AuthSuccess {
@@ -22,7 +22,7 @@ const initialState: AuthState = {
   token: null,
   isAuthenticated: false,
   isAuthenticating: false,
-  statusText: null
+  error: null
 }
 
 const auth = createSlice({
@@ -37,13 +37,12 @@ const auth = createSlice({
       state.isAuthenticating = false
       state.isAuthenticated = true
       state.token = token
-      state.statusText = 'Logged in!'
     },
     loginFailure(state, action: PayloadAction<AuthFailure>) {
       const { status } = action.payload
       state.isAuthenticating = false
       state.isAuthenticated = false
-      state.statusText = `Authentication Error ${status}`
+      state.error = `Log-in error ${status}`
     }
   }
 })

@@ -80,7 +80,7 @@ function IndicatorMessagesList() {
                   onSubmit={(values) => {
                     handleFilters(values)
                   }}>
-                  {({values, errors, handleSubmit}) => (
+                  {({errors, handleSubmit}) => (
                     <Form onSubmit={handleSubmit}>
                       <Form.Group>
                         <EventsCheckBox name="event">Show only Events</EventsCheckBox>

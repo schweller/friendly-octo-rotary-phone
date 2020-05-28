@@ -10,9 +10,10 @@ function Login() {
   const dispatch = useDispatch();
 
   const {
-    isAuthenticating
+    isAuthenticating,
+    error
   } = useSelector((state: RootState) => state.auth)
-
+  console.log(error)
   const handleLogin = useCallback((values) => {
     const {username, password} = values
     dispatch(login(username, password))
@@ -29,7 +30,6 @@ function Login() {
                 password: ''
               }}
               onSubmit={(values) => {
-                console.log(values)
                 handleLogin(values)
               }}
             >
@@ -37,13 +37,14 @@ function Login() {
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Field as={Form.Control} name="username" placeholder="Enter email" />
+                    <Field as={Form.Control} name="username" placeholder="Enter email" required />
                   </Form.Group>
 
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Field as={Form.Control} type="password" name="password" placeholder="Password" />
+                    <Field as={Form.Control} type="password" name="password" placeholder="Password" required />
                   </Form.Group>
+                  <p><small className="text-danger">{error}</small></p>
                   {
                     isAuthenticating ? 
                     <Button variant="primary" disabled>
@@ -60,6 +61,7 @@ function Login() {
                       Submit
                     </Button>
                   }
+                  
                 </Form>
               )}
             </Formik>

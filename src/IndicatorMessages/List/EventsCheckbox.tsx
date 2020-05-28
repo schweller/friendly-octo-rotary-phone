@@ -1,8 +1,8 @@
 import React from 'react';
 import { useField } from 'formik';
 
-const EventsCheckBox: React.FC<{name: string}> = ({ children, ...props }) => {
-  const [field, meta] = useField({ ...props, type: "checkbox" });
+const EventsCheckBox: React.FC<{ name: string }> = ({ children, ...props }) => {
+  const [field, meta] = useField({ ...props, type: 'checkbox' });
   return (
     <>
       <label className="checkbox">
@@ -16,4 +16,4 @@ const EventsCheckBox: React.FC<{name: string}> = ({ children, ...props }) => {
   );
 };
 
-export default EventsCheckBox
+export default EventsCheckBox;

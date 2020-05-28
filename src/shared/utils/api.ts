@@ -5,26 +5,29 @@ const defaults = {
   baseURL: `https://stagingapi.riskmethods.net/v2`,
   headers: () => ({
     'Content-Type': 'application/json',
-    Authorization: getStoredAccessToken() ? `Bearer ${getStoredAccessToken()}` : undefined,
+    Authorization: getStoredAccessToken()
+      ? `Bearer ${getStoredAccessToken()}`
+      : undefined,
   }),
   error: {
     code: 'INTERNAL_ERROR',
-    message: 'Something went wrong. Please check your internet connection or contact our support.',
+    message:
+      'Something went wrong. Please check your internet connection or contact our support.',
     status: 503,
     data: {},
   },
 };
 
 async function api(
-  url: string, 
+  url: string,
   variables?: any
-): Promise<AxiosResponse<{data: any}>> {
+): Promise<AxiosResponse<{ data: any }>> {
   return axios({
     url: `${defaults.baseURL}${url}`,
     method: 'GET',
     headers: defaults.headers(),
-    params: variables
-  })
+    params: variables,
+  });
 }
 
 export default {

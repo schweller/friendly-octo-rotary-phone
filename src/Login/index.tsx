@@ -1,52 +1,66 @@
-import React, { useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { Field, Formik } from 'formik';
 
-import { RootState } from 'reducers'
-import { login } from 'reducers/auth'
+import { RootState } from 'reducers';
+import { login } from 'reducers/auth';
 
 function Login() {
   const dispatch = useDispatch();
 
-  const {
-    isAuthenticating,
-    error
-  } = useSelector((state: RootState) => state.auth)
-  console.log(error)
-  const handleLogin = useCallback((values) => {
-    const {username, password} = values
-    dispatch(login(username, password))
-  }, [dispatch])
+  const { isAuthenticating, error: authError } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  const handleLogin = useCallback(
+    (values) => {
+      const { username, password } = values;
+      dispatch(login(username, password));
+    },
+    [dispatch]
+  );
 
   return (
     <>
       <Container>
-        <Row className="justify-content-md-center" style={{height: '100vh'}}>
+        <Row className="justify-content-md-center" style={{ height: '100vh' }}>
           <Col md="auto" className="align-self-center">
             <Formik
               initialValues={{
                 username: '',
-                password: ''
+                password: '',
               }}
               onSubmit={(values) => {
-                handleLogin(values)
+                handleLogin(values);
               }}
             >
-              {({values, handleSubmit}) => (
+              {({ values, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Field as={Form.Control} name="username" placeholder="Enter email" required />
+                    <Field
+                      as={Form.Control}
+                      name="username"
+                      placeholder="Enter email"
+                      required
+                    />
                   </Form.Group>
 
                   <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Field as={Form.Control} type="password" name="password" placeholder="Password" required />
+                    <Field
+                      as={Form.Control}
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      required
+                    />
                   </Form.Group>
-                  <p><small className="text-danger">{error}</small></p>
-                  {
-                    isAuthenticating ? 
+                  <p>
+                    <small className="text-danger">{authError}</small>
+                  </p>
+                  {isAuthenticating ? (
                     <Button variant="primary" disabled>
                       <Spinner
                         as="span"
@@ -56,12 +70,12 @@ function Login() {
                         aria-hidden="true"
                       />
                       Logging in...
-                    </Button> :
+                    </Button>
+                  ) : (
                     <Button variant="primary" type="submit">
                       Submit
                     </Button>
-                  }
-                  
+                  )}
                 </Form>
               )}
             </Formik>
@@ -69,7 +83,7 @@ function Login() {
         </Row>
       </Container>
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;

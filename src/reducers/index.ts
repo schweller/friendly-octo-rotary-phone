@@ -7,8 +7,8 @@ import indicatorMessage from './indicatorMessage';
 const rootReducer = combineReducers({
   auth,
   indicatorMessages,
-  indicatorMessage
+  indicatorMessage,
 });
 
-export type RootState = ReturnType<typeof rootReducer>
-export default rootReducer
+export type RootState = ReturnType<typeof rootReducer>;
+export default rootReducer;

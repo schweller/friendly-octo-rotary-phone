@@ -1,4 +1,4 @@
 export default function getUTCDate(date: string) {
-  const dateObject = new Date(date)
-  return dateObject.toUTCString()
+  const dateObject = new Date(date);
+  return dateObject.toUTCString();
 }

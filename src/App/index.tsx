@@ -1,29 +1,23 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 
-import Login from 'Login'
-import { RootState } from 'reducers'
-import IndicatorMessages from 'IndicatorMessages'
+import Login from 'Login';
+import { RootState } from 'reducers';
+import IndicatorMessages from 'IndicatorMessages';
 
 function App() {
-  const {
-    isAuthenticated
-  } = useSelector((state: RootState) => state.auth)
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-  let content
+  let content;
   if (isAuthenticated) {
-    content = (
-      <IndicatorMessages />
-    )
+    content = <IndicatorMessages />;
   } else {
-    content = (<Login />)
+    content = <Login />;
   }
 
   return (
     <>
-      <div className="App">
-        {content}
-      </div>
+      <div className="App">{content}</div>
     </>
   );
 }

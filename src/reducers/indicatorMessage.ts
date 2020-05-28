@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
 import { AppThunk } from 'store/configureStore'
+import api from 'shared/utils/api'
 
 interface IndicatorMessage {
   id: number,
@@ -73,18 +73,18 @@ export const {
 export default indicatorMessage.reducer
 
 export const fetchIndicatorMessage = (
-  token: string,
   id: number
 ): AppThunk => async dispatch => {
   try {
     dispatch(getIndicatorMessageStart(id))
-    const { data: responseData } = await axios.get(
-      `https://stagingapi.riskmethods.net/v2/indicator_messages/${id}?&fields[indicator_message]=name,body,body_with_rendered_links,subject,country,source,risk_score,indicator,indicator_message_type,read_more_url,created_at,valid_until`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    dispatch(getIndicatorMessageSuccess({indicatorMessage: responseData.data}))
+    const { 
+      data: { 
+        data: responseData = {} 
+      } = {} 
+    } = await api.get(
+      `/indicator_messages/${id}?&fields[indicator_message]=name,body,body_with_rendered_links,subject,country,source,risk_score,indicator,indicator_message_type,read_more_url,created_at,valid_until`
+    )
+    dispatch(getIndicatorMessageSuccess({indicatorMessage: responseData}))
   } catch (err) {
     dispatch(getIndicatorMessageFailure())
   }

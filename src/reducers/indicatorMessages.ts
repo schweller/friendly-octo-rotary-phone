@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import axios from 'axios'
 import { AppThunk } from 'store/configureStore'
+import api from 'shared/utils/api'
 
 export type FilterParams = {
   name: string
@@ -74,31 +74,24 @@ export const {
 export default indicatorMessages.reducer
 
 export const fetchIndicatorMessages = (
-  token: string,
   filters?: Array<FilterParams>
 ): AppThunk => async dispatch => {
   try {
     if (filters) {
       dispatch(setFilters({ filters }))
     }
-
     const filterParams = filters && filters.reduce((acc, {name, value}) => {
       acc[`filter[${name}]`] = value
       return acc
     }, {} as {[key: string]: any})
 
     dispatch(getIndicatorMessagesStart())
-    const { data: responseData } = await axios.get(
-      'https://stagingapi.riskmethods.net/v2/indicator_messages?&fields[indicator_message]=name,subject,country,source,risk_score,indicator,indicator_message_type,read_more_url,created_at&page[size]=20', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      params: {
-        ...filterParams
-      }
-    })
+    const { data: { data: responseData = {} } = {} } = await api.get(
+      '/indicator_messages?&fields[indicator_message]=name,subject,country,source,risk_score,indicator,indicator_message_type,read_more_url,created_at&page[size]=20', 
+      filterParams
+    )
     dispatch(getIndicatorMessagesSuccess({
-      messages: responseData.data
+      messages: responseData
     }))
   } catch (err) {
     dispatch(getIndicatorMessagesFailure(err.toString()))

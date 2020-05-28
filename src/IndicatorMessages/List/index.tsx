@@ -7,6 +7,8 @@ import * as yup from 'yup';
 import SingleIndicatorMessage from './SingleIndicatorMessage';
 import ScoreRange from './ScoreRange'
 import EventsCheckBox from './EventsCheckbox'
+import { FiltersCol } from './Styles'
+import SectionHeader from 'shared/components/SectionHeader'
 
 import { RootState } from 'reducers';
 import { fetchIndicatorMessages, FilterParams } from 'reducers/indicatorMessages'
@@ -27,22 +29,18 @@ function IndicatorMessagesList() {
     filters
   } = useSelector((state: RootState) => state.indicatorMessages)
 
-  const { token } = useSelector((state: RootState) => state.auth)
-
   const handleFilters = useCallback((values: FiltersFormValues) => {
-    if (token) {
-      const truthyFilters = Object.keys(values).reduce((acc, key) => {
-        const filter = values[key]
-        if (filter) {
-          acc.push({
-            name: key,
-            value: filter
-          })
-        }
-        return acc
-      }, [] as Array<FilterParams>)
-      if (truthyFilters) dispatch(fetchIndicatorMessages(token, truthyFilters))
-    }
+    const truthyFilters = Object.keys(values).reduce((acc, key) => {
+      const filter = values[key]
+      if (filter) {
+        acc.push({
+          name: key,
+          value: filter
+        })
+      }
+      return acc
+    }, [] as Array<FilterParams>)
+    if (truthyFilters) dispatch(fetchIndicatorMessages(truthyFilters))
   }, [dispatch])
 
   const formInitialValues = useMemo(() => {
@@ -51,14 +49,11 @@ function IndicatorMessagesList() {
         acc[name] = value
         return acc
       }, {} as {[key: string]: any})
-      console.log(filtersObject)
-
       return {
         ...initialFormValues,
         ...filtersObject
       }
     }
-
     return initialFormValues
   }, [filters])
 
@@ -68,39 +63,41 @@ function IndicatorMessagesList() {
         isLoading ? 'Loading data!' : 
         <Container>
           <Row className="justify-content-md-center">
-            <Col lg="2" md="2">
-              <Formik
-                initialValues={formInitialValues}
-                validationSchema={
-                  yup.object().shape({
-                    risk_score_max: yup.number().when('risk_score_min', 
-                      (risk_score_min: number, schema: any) => {
-                        console.log(risk_score_min)
-                        return risk_score_min !== undefined && schema.min(risk_score_min)
-                      }
-                    ),
-                    risk_score_min: yup.number()
-                  })
-                }
-                onSubmit={(values) => {
-                  console.log(values)
-                  handleFilters(values)
-                }}>
-                {({values, errors, handleSubmit}) => (
-                  <Form onSubmit={handleSubmit}>
-                    <EventsCheckBox name="event">Show only Events</EventsCheckBox>
-                    <Form.Group controlId="formBasicRange">
-                      <Form.Label>Risk Score</Form.Label>
-                      <ScoreRange name="risk_score_min">Min</ScoreRange>
-                      <ScoreRange name="risk_score_max">Max</ScoreRange>
-                    </Form.Group>
-                    <Button disabled={Object.keys(errors).length > 0} type="submit">Filter</Button>
-                  </Form>
-                )}
-              </Formik>
+            <Col className="mt-4 px-0" lg="3" md="3">
+              <FiltersCol>
+                <Formik
+                  initialValues={formInitialValues}
+                  validationSchema={
+                    yup.object().shape({
+                      risk_score_max: yup.number().when('risk_score_min', 
+                        (risk_score_min: number, schema: any) => {
+                          return risk_score_min !== undefined && schema.min(risk_score_min, `Maximum cannot be lower than minimum`)
+                        }
+                      ),
+                      risk_score_min: yup.number()
+                    })
+                  }
+                  onSubmit={(values) => {
+                    handleFilters(values)
+                  }}>
+                  {({values, errors, handleSubmit}) => (
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Group>
+                        <EventsCheckBox name="event">Show only Events</EventsCheckBox>
+                      </Form.Group>
+                      <Form.Group>
+                        <p>Risk Score</p>
+                        <ScoreRange name="risk_score_min">Min</ScoreRange>
+                        <ScoreRange name="risk_score_max">Max</ScoreRange>
+                      </Form.Group>
+                      <Button disabled={Object.keys(errors).length > 0} type="submit">Filter</Button>
+                    </Form>
+                  )}
+                </Formik>
+              </FiltersCol>
             </Col>
-            <Col lg="10" md="10">
-              <h3 className="mb-4">Indicator Messages</h3>
+            <Col lg="9" md="9">
+              <SectionHeader title="Indicator Messages" />
               {messages && messages.map((message) => {
                 const { id } = message
                 return <SingleIndicatorMessage key={id} message={message} />

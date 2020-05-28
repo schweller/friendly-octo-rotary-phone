@@ -1,7 +1,5 @@
-let currentToken = '';
+export const getStoredAccessToken = () => localStorage.getItem('accessToken');
 
-export const setToken = (token: string) => {
-  currentToken = token;
-};
+export const storeAccessToken = (token: string) => localStorage.setItem('accessToken', token);
 
-export const getToken = () => (currentToken.length === 0 ? null : currentToken);
+export const removeStoredAuthToken = () => localStorage.removeItem('accessToken');

@@ -1,12 +1,15 @@
 import styled from 'styled-components'
+import { Badge, Col } from 'react-bootstrap';
+
+import { mixin } from 'shared/utils/styles'
 
 const Container = styled.div`
+  ${mixin.border}
+  ${mixin.boxShadowMedium}
   display: flex;
   flex: 1;
   flex-wrap: wrap;
-  border: 0 solid rgba(122,123,151,.3);
   border-width: 1px;
-  border-radius: .25rem;
   margin-bottom: 1rem;
 `
 
@@ -22,8 +25,8 @@ type ScoreContainerProps = {
 }
 
 const ScoreContainer = styled.div`
-  align-items: center;
-  border: 0 solid rgba(122,123,151,.3);
+  ${mixin.border}
+  align-items: center;  
   border-right-width: 1px;
   display: flex;
   flex-direction: column;
@@ -59,13 +62,26 @@ const Source = styled.p`
   font-size: .75rem;
 `
 
+const StyledBadge = styled(Badge)`
+  min-width: 50px;
+  font-size: .85rem;
+`
+
+const FiltersCol = styled(Col)`
+  ${mixin.border}
+  border-width: 1px;
+  padding: 1rem;
+`
+
 export {
+  BlockScoreContainer,
   Container,
   ContainerHeader,
-  Source,
-  ScoreContainer,
-  BlockScoreContainer,
   DetailsContainer,
+  FiltersCol,
   Name,
-  Subject
+  ScoreContainer,
+  Source,
+  Subject,
+  StyledBadge
 }

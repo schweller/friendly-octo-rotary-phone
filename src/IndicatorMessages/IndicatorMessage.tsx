@@ -15,6 +15,7 @@ import {
   Name 
 } from './List/Styles'
 import { StyledProgressBar } from './Styles'
+import SectionHeader from 'shared/components/SectionHeader'
 
 import getVariant from 'shared/utils/getVariant'
 import getUTCDate from 'shared/utils/getUTCDate'
@@ -31,15 +32,13 @@ function IndicatorMessage() {
     dispatch(resetIndicatorMessage())
   }, [dispatch])
 
-  console.log(indicatorMessage)
-
   return (
     <>
       { isLoading ?
         <div>Loading message!</div> : 
         (indicatorMessage && 
           <Container>
-            <h3 className="mb-4">Indicator Message</h3>
+            <SectionHeader title="Indicator Message" />
             <Button className="p-0 mb-4" variant="link" onClick={handleBackToList}>{`< Go to Indicator Messages`}</Button>
             <StyledContainer>
               <ContainerHeader>{indicatorMessage?.attributes.name}</ContainerHeader>

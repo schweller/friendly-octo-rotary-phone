@@ -1,19 +1,21 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { Badge, BadgeProps, Button } from 'react-bootstrap';
-import styled from 'styled-components';
+import { Button } from 'react-bootstrap';
 
 import { RootState } from 'reducers'
 import { fetchIndicatorMessage } from 'reducers/indicatorMessage'
 import getVariant from 'shared/utils/getVariant'
 
-import { Container, DetailsContainer, Source, Subject, ScoreContainer, Name } from './Styles'
-
-const StyledBadge = styled(Badge)`
-  min-width: 50px;
-  font-size: .85rem;
-`
-
+import { 
+  Container, 
+  DetailsContainer, 
+  Name,
+  ScoreContainer, 
+  Source, 
+  Subject,
+  StyledBadge
+} from './Styles'
+  
 type PropsType = {
   message: {
     id: number
@@ -34,17 +36,10 @@ function SingleIndicatorMessage({message}: PropsType) {
 
   const dispatch = useDispatch()
 
-  const {
-    token
-  } = useSelector((state: RootState) => state.auth)
-
-
   const date = new Date(attributes.created_at)
 
   const handleSelect = useCallback(() => {
-    if (token) {
-      dispatch(fetchIndicatorMessage(token, id))
-    }
+    dispatch(fetchIndicatorMessage(id))
   }, [id]);
 
   return (

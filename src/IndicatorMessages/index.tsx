@@ -11,18 +11,12 @@ function IndicatorMessages() {
   const dispatch = useDispatch()
 
   const {
-    token
-  } = useSelector((state: RootState) => state.auth)
-
-  const {
     indicatorMessageId
   } = useSelector((state: RootState) => state.indicatorMessage)
 
   useEffect(() => {
-    if (token) {
-      dispatch(fetchIndicatorMessages(token))
-    }
-  }, [dispatch, token])
+    dispatch(fetchIndicatorMessages())
+  }, [dispatch])
 
   return (
     <>

@@ -6,7 +6,7 @@ const EventsCheckBox: React.FC<{name: string}> = ({ children, ...props }) => {
   return (
     <>
       <label className="checkbox">
-        <input {...field} {...props} type="checkbox" />
+        <input className="mr-2" {...field} {...props} type="checkbox" />
         {children}
       </label>
       {meta.touched && meta.error ? (

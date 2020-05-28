@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from 'redux/store/configureStore';
-import api from 'shared/utils/api';
+import { AppThunk } from '../store/configureStore';
+import api from '../../shared/utils/api';
 
 export type FilterParams = {
   name: string;

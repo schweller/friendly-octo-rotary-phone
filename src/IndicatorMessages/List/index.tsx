@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -8,14 +8,14 @@ import SingleIndicatorMessage from './SingleIndicatorMessage';
 import ScoreRange from './ScoreRange';
 import EventsCheckBox from './EventsCheckbox';
 import { FiltersCol } from './Styles';
-import SectionHeader from 'shared/components/SectionHeader';
-import LoadingOverlay from 'shared/components/LoadingOverlay';
+import SectionHeader from '../../shared/components/SectionHeader';
+import LoadingOverlay from '../../shared/components/LoadingOverlay';
 
-import { RootState } from 'redux/reducers';
+import { RootState } from '../../redux/reducers';
 import {
   fetchIndicatorMessages,
   FilterParams,
-} from 'redux/reducers/indicatorMessages';
+} from '../../redux/reducers/indicatorMessages';
 
 interface FiltersFormValues {
   [key: string]: any;

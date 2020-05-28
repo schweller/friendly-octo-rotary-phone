@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { AppThunk } from 'redux/store/configureStore';
-import { storeAccessToken } from 'shared/utils/accessToken';
+import { AppThunk } from '../store/configureStore';
+import { storeAccessToken } from '../../shared/utils/accessToken';
 
 interface AuthState {
   token: string | null;

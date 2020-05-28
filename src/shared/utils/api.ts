@@ -1,5 +1,5 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
-import { getStoredAccessToken } from 'shared/utils/accessToken';
+import axios, { AxiosResponse } from 'axios';
+import { getStoredAccessToken } from './accessToken';
 
 const defaults = {
   baseURL: `https://stagingapi.riskmethods.net/v2`,

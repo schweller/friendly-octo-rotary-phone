@@ -1,10 +1,9 @@
 import React from 'react';
-import { renderWithRedux } from 'shared/utils/test-utils';
 import { fireEvent, act, waitForElement } from '@testing-library/react';
-import * as reactRedux from 'react-redux';
-import Login from '.';
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from 'redux/reducers';
+import { renderWithRedux } from '../shared/utils/test-utils';
+import rootReducer from '../redux/reducers';
+import Login from '.';
 
 test('renders Login page', async () => {
   const store = configureStore({ reducer: rootReducer });

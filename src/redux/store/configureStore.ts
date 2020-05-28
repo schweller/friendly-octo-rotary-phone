@@ -1,15 +1,15 @@
 import { configureStore, Action } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 
-import rootReducer, { RootState } from 'redux/reducers';
+import rootReducer, { RootState } from '../reducers';
 
 const store = configureStore({
   reducer: rootReducer,
 });
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept('reducers', () => {
-    const newRootReducer = require('reducers').default;
+  module.hot.accept('../reducers', () => {
+    const newRootReducer = require('../reducers').default;
     store.replaceReducer(newRootReducer);
   });
 }

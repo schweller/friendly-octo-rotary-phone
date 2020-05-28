@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-import Color from 'color';
 
 export const color = {
   primary: '#0052cc', // Blue

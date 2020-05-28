@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
-import { fetchIndicatorMessage } from 'redux/reducers/indicatorMessage';
-import getVariant from 'shared/utils/getVariant';
-import getUTCDate from 'shared/utils/getUTCDate';
+import { fetchIndicatorMessage } from '../../redux/reducers/indicatorMessage';
+import getVariant from '../../shared/utils/getVariant';
+import getUTCDate from '../../shared/utils/getUTCDate';
 
 import {
   Container,
@@ -38,7 +38,7 @@ function SingleIndicatorMessage({ message }: PropsType) {
 
   const handleSelect = useCallback(() => {
     dispatch(fetchIndicatorMessage(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <Container data-testid="single-indicator-message">

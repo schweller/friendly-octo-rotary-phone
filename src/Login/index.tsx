@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { Field, Formik } from 'formik';
 
-import { RootState } from 'redux/reducers';
-import { login } from 'redux/reducers/auth';
+import { RootState } from '../redux/reducers';
+import { login } from '../redux/reducers/auth';
 
 function Login() {
   const dispatch = useDispatch();

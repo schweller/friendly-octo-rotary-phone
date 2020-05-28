@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Container, ProgressBarProps } from 'react-bootstrap';
 
-import { RootState } from 'redux/reducers';
-import { resetIndicatorMessage } from 'redux/reducers/indicatorMessage';
+import { RootState } from '../redux/reducers';
+import { resetIndicatorMessage } from '../redux/reducers/indicatorMessage';
 
 import {
   Container as StyledContainer,
@@ -14,11 +14,11 @@ import {
   ScoreContainer,
 } from './List/Styles';
 import { StyledProgressBar } from './Styles';
-import SectionHeader from 'shared/components/SectionHeader';
-import LoadingOverlay from 'shared/components/LoadingOverlay';
+import SectionHeader from '../shared/components/SectionHeader';
+import LoadingOverlay from '../shared/components/LoadingOverlay';
 
-import getVariant from 'shared/utils/getVariant';
-import getUTCDate from 'shared/utils/getUTCDate';
+import getVariant from '../shared/utils/getVariant';
+import getUTCDate from '../shared/utils/getUTCDate';
 
 function IndicatorMessage() {
   const dispatch = useDispatch();

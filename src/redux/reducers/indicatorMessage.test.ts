@@ -1,5 +1,5 @@
 import axios from 'axios';
-import api from 'shared/utils/api';
+import api from '../../shared/utils/api';
 
 import reducer, {
   fetchIndicatorMessage,

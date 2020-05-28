@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from 'redux/reducers';
-import { fetchIndicatorMessages } from 'redux/reducers/indicatorMessages';
+import { RootState } from '../redux/reducers';
+import { fetchIndicatorMessages } from '../redux/reducers/indicatorMessages';
 
 import IndicatorMessagesList from './List';
 import IndicatorMessage from './IndicatorMessage';

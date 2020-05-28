@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Badge, Col } from 'react-bootstrap';
 
-import { mixin } from 'shared/utils/styles';
+import { mixin } from '../../shared/utils/styles';
 
 const Container = styled.div`
   ${mixin.border}

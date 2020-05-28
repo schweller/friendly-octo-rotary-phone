@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { configureStore, Store, Action, AnyAction } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import rootReducer from 'redux/reducers';
+import rootReducer from '../../redux/reducers';
 
 interface RenderWithRedux<
   S = any,

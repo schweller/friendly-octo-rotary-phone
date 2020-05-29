@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderWithRedux } from 'shared/utils/test-utils';
+import { renderWithRedux } from '../shared/utils/test-utils';
 import App from '.';
 
 test('renders Login page', () => {

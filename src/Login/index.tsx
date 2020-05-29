@@ -16,7 +16,6 @@ function Login() {
   const handleLogin = useCallback(
     (values) => {
       const { username, password } = values;
-      console.log(username, password);
       dispatch(login(username, password));
     },
     [dispatch]

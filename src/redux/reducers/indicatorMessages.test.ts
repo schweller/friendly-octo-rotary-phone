@@ -12,7 +12,7 @@ import reducer, {
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from '.';
 
-jest.mock('shared/utils/api');
+jest.mock('../../shared/utils/api');
 const mockedAxios = api as jest.Mocked<typeof axios>;
 
 describe('indicatorMessages slice', () => {

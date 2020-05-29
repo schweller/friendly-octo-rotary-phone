@@ -61,8 +61,8 @@ export const login = (username: string, password: string): AppThunk => async (
         grant_type: 'password',
         username,
         password,
-        client_id: 'fjHsalRElzo6JB_dvIGx6pw2p4WMT0pMjhtcW7d159Q',
-        client_secret: 'dSANY4dUV8cn-24WD8R9tBlWtWM70RrabWbfOne442o',
+        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_secret: process.env.REACT_APP_CLIENT_SECRET
       }
     );
     storeAccessToken(data.access_token);
